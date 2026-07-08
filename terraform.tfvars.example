@@ -1,0 +1,29 @@
+vsphere_server       = "vcenter.onprem.example.com"
+vsphere_user         = "administrator@vsphere.local"
+vsphere_password     = "change-me"
+allow_unverified_ssl = true
+datacenter           = "DC-OnPrem"
+
+site_pairing = {
+  local_system_url  = "https://hcx.onprem.example.com"
+  remote_system_url = "https://hcx.cloud.example.com"
+  remote_username   = "cloudadmin@vmc.local"
+}
+
+network_extensions = [
+  {
+    name            = "app-tier"
+    source_network  = "vlan-100-app"
+    gateway_cidr    = "10.10.10.1/24"
+    appliance_group = "NE-Appliance-1"
+  }
+]
+
+migration_groups = [
+  {
+    name           = "wave-1-web"
+    migration_type = "bulk"
+    vms            = ["web-01", "web-02"]
+    target_network = "app-tier"
+  }
+]
